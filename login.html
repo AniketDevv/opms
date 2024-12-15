@@ -153,82 +153,89 @@
         <div class="login-section">
             <h2>Login</h2>
             <p>Enter your account details</p>
-
+    
             <!-- Role Switch -->
             <div class="role-switch">
                 <button id="student-btn" class="active">Student</button>
                 <button id="admin-btn">Admin</button>
             </div>
-
-            <form id="login-form" action="login.php" method="POST">
+    
+            <!-- Student Login Form -->
+            <form id="student-form" action="student_login.php" method="POST">
                 <div class="input-group">
-                    <label for="email" id="email-label">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <label for="student-email" id="student-email-label">Email</label>
+                    <input type="email" id="student-email" name="email" placeholder="Student Email" required>
                 </div>
-
-                <!-- Admin Registered ID Field -->
-                <div class="input-group" id="admin-id-group" >
-                    <label for="registered-id" id="registered-id-label">Registered ID</label>
-                    <input type="text" id="registered-id" name="registered-id" placeholder="Registered ID" style="display: none;">
-                </div>
-
-                <!-- Password Field -->
+    
                 <div class="input-group">
-                    <label for="password" id="password-label">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                    <span class="toggle-password">&#128065;</span>
+                    <label for="student-password" id="student-password-label">Student Password</label>
+                    <input type="password" id="student-password" name="password" placeholder="Student Password" required>
+                    <span class="toggle-password" id="toggle-student-password">&#128065;</span>
                 </div>
+    
                 <a href="#" class="forgot-password" id="forgot-password">Forgot Password?</a>
                 <button type="submit" class="login-btn">Login</button>
-                <p id="no-account">Don't have an account? <a href="registration.html" class="signup-btn" id="signup-link" onclick="fun()">Sign up</a></p>
             </form>
+    
+            <!-- Admin Login Form -->
+            <form id="admin-form" action="admin_login.php" method="POST" style="display: none;">
+                <div class="input-group">
+                    <label for="admin-registered-id" id="admin-registered-id-label">Registered ID</label>
+                    <input type="text" id="admin-registered-id" name="registered-id" placeholder="Registered ID" required>
+                </div>
+    
+                <div class="input-group">
+                    <label for="admin-password" id="admin-password-label">Admin Password</label>
+                    <input type="password" id="admin-password" name="password" placeholder="Admin Password" required>
+                    <span class="toggle-password" id="toggle-admin-password">&#128065;</span>
+                </div>
+    
+                <a href="#" class="forgot-password" id="forgot-password">Forgot Password?</a>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+    
+            <p id="no-account">Don't have an account? <a href="registration.html" class="signup-btn" id="signup-link" onclick="fun()">Sign up</a></p>
         </div>
-
+    
         <div class="welcome-section">
             <h1>Welcome to<br>Student Portal</h1>
             <p>Login to access your account</p>
             <div class="illustration">
-                <!-- Illustration placeholder, you could add SVG or image here -->
+                <!-- Illustration placeholder -->
                 <img src="New Project.png" alt="Illustration">
             </div>
         </div>
     </div>
-
+    
     <script>
         // JavaScript to toggle password visibility
-        document.querySelector('.toggle-password').addEventListener('click', function () {
-            const passwordField = document.getElementById('password');
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁️' : '🙈';  // Toggle icon (optional)
+        document.querySelectorAll('.toggle-password').forEach(toggle => {
+            toggle.addEventListener('click', function () {
+                const passwordField = this.previousElementSibling;
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.textContent = type === 'password' ? '👁️' : '🙈';  // Toggle icon
+            });
         });
-
+    
         // JavaScript to switch between Student and Admin login
         document.getElementById('student-btn').addEventListener('click', function() {
             document.getElementById('student-btn').classList.add('active');
             document.getElementById('admin-btn').classList.remove('active');
-            document.getElementById('email').style.display = 'block';
-            document.getElementById('email-label').style.display = 'block';
-            document.getElementById('registered-id').style.display = 'none';
-            document.getElementById('registered-id-label').style.display = 'none';
-            document.getElementById('forgot-password').style.display = 'block';
-            document.getElementById('no-account').style.display = 'block';
+            document.getElementById('student-form').style.display = 'block';
+            document.getElementById('admin-form').style.display = 'none';
         });
-
+    
         document.getElementById('admin-btn').addEventListener('click', function() {
             document.getElementById('admin-btn').classList.add('active');
             document.getElementById('student-btn').classList.remove('active');
-            document.getElementById('email').style.display = 'none';
-            document.getElementById('email-label').style.display = 'none';
-            document.getElementById('registered-id').style.display = 'block';
-            document.getElementById('registered-id-label').style.display = 'block';
-            document.getElementById('forgot-password').style.display = 'none';
-            document.getElementById('no-account').style.display = 'none';
+            document.getElementById('admin-form').style.display = 'block';
+            document.getElementById('student-form').style.display = 'none';
         });
-
+    
         function fun() {
             window.location.assign("registration.html");
         }
-    </script>
+    </script>    
 </body>
 </html>
