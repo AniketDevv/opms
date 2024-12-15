@@ -5,3 +5,12 @@ CREATE TABLE admin (
     passwords VARCHAR(255) NOT NULL,  -- Store hashed password
     adminname VARCHAR(255) NOT NULL  -- Admin's name
 );
+
+Users table
+
+CREATE TABLE users (
+    username VARCHAR(100) NOT NULL,     -- Username column (maximum length 100)
+    email VARCHAR(255) NOT NULL unique,        -- Email column (maximum length 255)
+    admission_number INT NOT NULL primary key, -- Admission number (maximum length 50)
+    password VARCHAR(255) NOT NULL,     -- Password column (store hashed passwords)
+);
