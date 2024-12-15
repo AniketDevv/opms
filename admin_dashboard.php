@@ -9,9 +9,17 @@ if (!isset($_SESSION['registered_id'])) {
 }
 
 // Fetch the list of logged-in students
-$sql = "SELECT username, email, admission_number FROM users WHERE session_active = 1"; // assuming there's a column 'session_active' that tracks if a user is logged in
+$sql = "SELECT username, email, admission_number FROM users"; // assuming there's a column 'session_active' that tracks if a user is logged in
 $result = $conn->query($sql);
+$loggedInUsers = [];  // Array to store logged-in users
 
+// Check the session for active users
+foreach ($_SESSION as $key => $value) {
+    if (strpos($key, 'user_') === 0) {  // If session variable is a logged-in user
+        // Add the user info to the logged-in users list
+        $loggedInUsers[] = $value;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +84,7 @@ $result = $conn->query($sql);
 
 <div class="container">
     <div class="dashboard">
-        <h1>Welcome, Admin <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+        <h1>Welcome, Admin <?php echo htmlspecialchars($_SESSION['adminname']); ?>!</h1>
 
         <h2>Logged-in Students</h2>
         <div class="student-list">
