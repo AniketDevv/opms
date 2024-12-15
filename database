@@ -1,0 +1,7 @@
+Admin table
+
+CREATE TABLE admin (
+    registered_id VARCHAR(255) PRIMARY KEY,  -- Unique ID for each admin
+    passwords VARCHAR(255) NOT NULL,  -- Store hashed password
+    adminname VARCHAR(255) NOT NULL  -- Admin's name
+);
